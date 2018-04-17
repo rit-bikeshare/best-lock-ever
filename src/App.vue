@@ -1,5 +1,18 @@
 <template>
   <div id="app">
+    <div>
+      <div>
+        Connection URL: <input type="text" v-model="address"/>
+      </div>
+      <div>
+        Lock ID: <input type="text" v-model="lock.id" />
+      </div>
+      <div>
+        <button v-if="lock.ws.socket == undefined" @click="lock.connect(address + '/' + lock.id)">Connect</button>
+        <button v-else @click="lock.disconnect()">Disconnect</button>
+      </div>
+    </div>
+    <hr/>
     <lock-state :state="lock.state"/>
     <div>
       <button v-if="lock.state == 'locked'" @click="lock.unlock()">Unlock</button>
@@ -19,9 +32,10 @@ export default {
   },
   data() {
     return {
-      lock: new Lock()
+      lock: new Lock(),
+      address: 'wss://bikesharedev.rit.edu/api/ws/lock/register'
     }
-  }
+  },
 }
 </script>
 
