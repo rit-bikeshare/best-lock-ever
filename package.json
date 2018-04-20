@@ -9,7 +9,7 @@
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js",
-    "deploy": "npm run build && git subtree push --prefix dist origin gh-pages"
+    "deploy": "npm run build && git add dist/* -f && git commit -m 'auto deploy' && git subtree push --prefix dist origin gh-pages && git reset --hard HEAD~1"
   },
   "dependencies": {
     "django-channels": "^1.1.6",
