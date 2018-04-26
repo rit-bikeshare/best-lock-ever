@@ -17,6 +17,12 @@
     <div>
       <button v-if="lock.state == 'locked'" @click="lock.unlock()">Unlock</button>
       <button v-else-if="lock.state == 'unlocked'" @click="lock.lock()">Lock</button>
+      <select v-model="location" @change="lock.updateLocation({ lat: location.lat, lon: location.lon })">
+        <option disabled value="">Select a bike location</option>
+        <option :key="option.text" v-for="option in lock.locationOptions" v-bind:value="option.value">
+          {{ option.text }}
+        </option>
+      </select>
     </div>
   </div>
 </template>
@@ -32,6 +38,7 @@ export default {
   },
   data() {
     return {
+      location: null,
       lock: new Lock(),
       address: 'wss://bikesharedev.rit.edu/api/ws/lock/register'
     }
