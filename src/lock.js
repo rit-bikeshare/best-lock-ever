@@ -101,9 +101,7 @@ export default class Lock {
 
   updateLocation(location) {
     const data = {
-      state: {
-        location
-      }
+      location
     };
     console.log(data);
     this.ws.send(data);
